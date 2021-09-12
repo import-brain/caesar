@@ -11,13 +11,13 @@ int main(int argc, string argv[])
 {
 
     bool failure = false;
-
+    // if command line argument count is greater than 2 (including .caesar), return error message and exit main
     if (argc != 2)
     {
         printf("Usage: ./caesar key\n");
         return 1;
     }
-
+    // iterate through every character in command line argument, if character is not a digit, set failure to true
     for (int i = 0, n = strlen(argv[1]); i < n; i++)
     {
         if (!isdigit(argv[1][i]))
@@ -25,15 +25,15 @@ int main(int argc, string argv[])
             failure = true;
         }
     }
-
+    // if failure is true, return error message, and exit main
     if (failure == true)
     {
         printf("Usage: ./caesar key\n");
         return 1;
     }
-
+    // convert command line argument to int
     int key = atoi(argv[1]);
-
+    // gets plaintext from user
     string plaintext = get_string("plaintext: ");
 
     printf("ciphertext: ");
@@ -44,6 +44,8 @@ int main(int argc, string argv[])
 
 void caesar(string input, int key)
 {
+    // for every character in input (plaintext, technically), perform ASCII calculations, print result
+    // note to self: strlen() returns unsigned long
     for (unsigned long i = 0; i < strlen(input); i++)
     {
         if (islower(input[i]))
