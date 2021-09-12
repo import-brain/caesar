@@ -32,13 +32,13 @@ int main(int argc, string argv[])
         return 1;
     }
 
-    int argvToInt = atoi(argv[1]);
+    int key = atoi(argv[1]);
 
     string plaintext = get_string("plaintext: ");
 
     string ciphertext = "";
 
-    string finaltext = caesar(plaintext, ciphertext, argvToInt);
+    string finaltext = caesar(plaintext, ciphertext, key);
 
     printf("ciphertext: %s\n", finaltext);
     return 0;
