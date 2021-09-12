@@ -7,28 +7,30 @@
 
 int main(int argc, string argv[])
 {
-    int argvToInt = atoi(argv[1]);
     if (argc > 2)
     {
         printf("Usage: ./caesar key\n");
+        return 1;
     }
-
-    if (strlen(argv[1]) == 0)
+    else if (argc == 1)
     {
         printf("Usage: ./caesar key\n");
+        return 1;
     }
 
-    int failureCounter = 0;
+    int argvToInt = atoi(argv[1]);
+
+    bool failure = false;
 
     for (int i = 0, n = strlen(argv[1]); i < n; i++)
     {
-        if (isalpha(argv[1][i]) || ispunct(argv[1][i]))
+        if (isalpha(argv[1][i]) || ispunct(argv[1][i]) || !isdigit(argv[1][i]) || isblank(argv[1][i] || isspace(argv[1][i])))
         {
-            failureCounter++;
+            failure = true;
         }
     }
 
-    if (failureCounter > 0)
+    if (failure == true)
     {
         printf("Usage: ./caesar key\n");
         return 1;
@@ -36,40 +38,76 @@ int main(int argc, string argv[])
 
     string plaintext = get_string("plaintext: ");
 
-    char ciphertext[strlen(plaintext)];
+    string ciphertext = "";
+
+    char UPPER_LETTERS[27];
+
+    char LOWER_LETTERS[27];
+
+    UPPER_LETTERS[26] = '\0';
+
+    LOWER_LETTERS[26] = '\0';
+
+    for (int i = 65; i < 90; i++)
+    {
+        char charredUpperLetter = (char) (i);
+        UPPER_LETTERS[i - 65] = charredUpperLetter;
+    }
+
+    for (int i = 97; i < 122; i++)
+    {
+        char charredLowerLetter = (char) (i);
+        LOWER_LETTERS[i - 97] = charredLowerLetter;
+    }
 
     for (int i = 0, n = strlen(plaintext); i < n; i++)
     {
         if (isupper(plaintext[i]))
         {
-            int currentLetter = (int) plaintext[i];
-            int newLetter = 0;
+            char currentLetter = plaintext[i];
             
-            newLetter = (currentLetter + newLetter) % 26;
+            char newLetter;
 
-            ciphertext[i] = (char) newLetter;
+            for (int j = 0; UPPER_LETTERS[j] != '\0'; j++)
+            {
+                if (currentLetter == UPPER_LETTERS[j])
+                {
+                    int tempLetter = ((j + argvToInt) % 26);
+
+                    newLetter = UPPER_LETTERS[tempLetter];
+                }
+            }
+
+            ciphertext[i] = newLetter;
         }
         else if (islower(plaintext[i]))
         {
-            int currentLetter = (int) plaintext[i];
-            int newLetter = 0;
+            char currentLetter = plaintext[i];
             
-            newLetter = (currentLetter + newLetter) % 26;
+            char newLetter;
 
-            ciphertext[i] = (char) newLetter;
+            for (int j = 0; LOWER_LETTERS[j] != '\0'; j++)
+            {
+                if (currentLetter == LOWER_LETTERS[j])
+                {
+                    int tempLetter = ((j + argvToInt) % 26);
+
+                    newLetter = LOWER_LETTERS[tempLetter];
+                }
+            }
+
+            ciphertext[i] = newLetter;
         }
         else if (plaintext[i] == ' ')
         {
             ciphertext[i] = ' ';
         }
+        else if (ispunct(plaintext[i]))
+        {
+            ciphertext[i] = plaintext[i];
+        }
     }
 
-    printf("ciphertext: ");
-
-    for (int i = 0, n = strlen(plaintext); i < n; i++)
-    {
-        printf("%c", ciphertext[i]);
-    }
-    printf("\n");
+    printf("ciphertext: %s\n", ciphertext);
     return 0;
 }
