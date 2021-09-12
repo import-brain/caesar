@@ -7,17 +7,12 @@
 
 int main(int argc, string argv[])
 {
-    if (argc > 2)
+    if (argc != 2)
     {
         printf("Usage: ./caesar key\n");
         return 1;
     }
-    else if (argc == 1)
-    {
-        printf("Usage: ./caesar key\n");
-        return 1;
-    }
-
+    
     int argvToInt = atoi(argv[1]);
 
     bool failure = false;
