@@ -5,7 +5,7 @@
 #include <math.h>
 #include <ctype.h>
 
-string caesar(string input, string output, int key);
+void caesar(string input, int key);
 
 int main(int argc, string argv[])
 {
@@ -36,15 +36,13 @@ int main(int argc, string argv[])
 
     string plaintext = get_string("plaintext: ");
 
-    string ciphertext = "";
+    printf("ciphertext: ");
+    caesar(plaintext, key);
 
-    string finaltext = caesar(plaintext, ciphertext, key);
-
-    printf("ciphertext: %s\n", finaltext);
     return 0;
 }
 
-string caesar(string input, string output, int key)
+void caesar(string input, int key)
 {
     for (unsigned long i = 0; i < strlen(input); i++)
     {
@@ -52,18 +50,18 @@ string caesar(string input, string output, int key)
         {
             int asciiCurrent = (int) input[i];
             int asciiConverted = (((asciiCurrent - 97 + key) % 26) + 97);
-            output[i] = (char) asciiConverted;
+            printf("%c", asciiConverted);
         }
         else if (isupper(input[i]))
         {
             int asciiCurrent = (int) input[i];
             int asciiConverted = (((asciiCurrent - 65 + key) % 26) + 65);
-            output[i] = (char) asciiConverted;
+            printf("%c", asciiConverted);
         }
         else if (isspace(input[i]) || ispunct(input[i]))
         {
-            output[i] = input[i];
+            printf("%c", input[i]);
         }
     }
-    return output;
+    printf("\n");
 }
