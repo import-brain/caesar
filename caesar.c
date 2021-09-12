@@ -48,13 +48,13 @@ string caesar(string input, string output, int key)
 {
     for (int i = 0; i < (int) strlen(input); i++)
     {
-        if (isupper(input[i]))
+        if (islower(input[i]))
         {
             int asciiCurrent = (int) input[i];
             int asciiConverted = (((asciiCurrent - 97 + key) % 26) + 97);
             output[i] = (char) asciiConverted;
         }
-        else if (islower(input[i]))
+        else if (isupper(input[i]))
         {
             int asciiCurrent = (int) input[i];
             int asciiConverted = (((asciiCurrent - 65 + key) % 26) + 65);
