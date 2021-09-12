@@ -46,7 +46,7 @@ int main(int argc, string argv[])
 
 string caesar(string input, string output, int key)
 {
-    for (int i = 0; i < (int) strlen(input); i++)
+    for (unsigned long i = 0; i < strlen(input); i++)
     {
         if (islower(input[i]))
         {
