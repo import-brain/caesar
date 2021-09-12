@@ -28,21 +28,36 @@ int main(int argc, string argv[])
 
     string plaintext = get_string("plaintext: ");
 
-    string ciphertext = "";
+    string ciphertext = caesar(plaintext, ciphertext, argvToInt);
 
     printf("ciphertext: %s\n", ciphertext);
     return 0;
 }
 
-string caesar(string input, string output)
+string caesar(string input, string output, int key)
 {
     for (int i = 0; i < strlen(input); i++)
     {
         if (isupper(input[i]))
         {
             int asciiCurrent = (int) input[i];
-            int asciiConverted = 
-
+            int asciiConverted = ((((asciiCurrent - 97) + key) % 26) + 97);
+            output[i] = (char) asciiConverted;
+        }
+        else if (islower(input[i]))
+        {
+            int asciiCurrent = (int) input[i];
+            int asciiConverted = ((((asciiCurrent - 65) + key) % 26) + 65);
+            output[i] = (char) asciiConverted;
+        }
+        else if (isspace(input[i]))
+        {
+            output[i] = input[i];
+        }
+        else if (ispunct(input[i]))
+        {
+            output[i] = input[i];
         }
     }
+    return output;
 }
